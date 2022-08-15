@@ -3,7 +3,6 @@ import ProductosServicios from '../servicios/ProductosServicio';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
 function ListarProductosComponente (props) {
     
     const [productos, setProductos] = useState([])

@@ -26,15 +26,15 @@ class VerProductoComponente extends Component {
                     <div className = "card-body">
                         <div className = "row">
                             <label> Nombre: </label>
-                            <div> { this.state.producto.name }</div>
+                            <div> { this.state.producto.nombres }</div>
                         </div>
                         <div className = "row">
                             <label> Precio: </label>
-                            <div> { this.state.producto.price }</div>
+                            <div> { this.state.producto.precio }</div>
                         </div>
                         <div className = "row">
                             <label> Stock: </label>
-                            <div> { this.state.producto.stocks }</div>
+                            <div> { this.state.producto.stock }</div>
                         </div>
                     </div>
 
