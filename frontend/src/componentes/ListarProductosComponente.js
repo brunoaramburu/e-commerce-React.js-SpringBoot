@@ -12,7 +12,7 @@ function ListarProductosComponente (props) {
         ProductosServicios.httpGet('')
             .then((res) => setProductos(res.data))
     }
-  
+
     useEffect(fetchProductos, [])
 
     const deleteProducto = (id) => {
@@ -55,9 +55,9 @@ function ListarProductosComponente (props) {
                                     productos => 
                                     
                                     <tr key={productos.id}>
-                                            <td> {productos.name} </td>   
-                                            <td> {productos.price}</td>
-                                            <td> {productos.stocks}</td>
+                                            <td> {productos.nombres} </td>   
+                                            <td> {productos.precio}</td>
+                                            <td> {productos.stock}</td>
                                             <td>
                                                 <button onClick={ () => editProducto(productos.id)} className="btn btn-info">Actualizar </button>
                                                 <button style={{marginLeft: "10px"}} onClick={ () => deleteProducto(productos.id)} className="btn btn-danger">Borrar </button>

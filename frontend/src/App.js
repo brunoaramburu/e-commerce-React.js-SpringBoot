@@ -16,11 +16,11 @@ function App() {
               <HeaderComponente />
                 <div className="container">
                     <Routes> 
-                          <Route path = "/" exact component = {ListarProductosComponente}></Route>
-                          <Route path = "/productos" component = {ListarProductosComponente}></Route>
-                          <Route path = "/crear-producto/:id" component = {CrearProductoComponente}></Route>
-                          <Route path = "/ver-producto/:id" component = {VerProductoComponente}></Route>
-                          <Route path = "/actualizar-producto/:id" component = {ActualizarProductoComponente}></Route>
+                          <Route path = "/" exact element={<ListarProductosComponente></ListarProductosComponente>}></Route>
+                          <Route path = "/productos" element = {<ListarProductosComponente></ListarProductosComponente>}></Route>
+                          <Route path = "/crear-producto/:id" element = {<CrearProductoComponente></CrearProductoComponente>}></Route>
+                          <Route path = "/ver-producto/:id" element = {<VerProductoComponente></VerProductoComponente>}></Route>
+                          <Route path = "/actualizar-producto/:id" element = {<ActualizarProductoComponente></ActualizarProductoComponente>}></Route>
                     </Routes>
                 </div>
               <FooterComponente />
