@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "venta")
@@ -16,10 +16,9 @@ import java.util.Date;
 @EqualsAndHashCode
 public class Venta {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idVenta;
+    private Integer id;
 
     /*@ManyToOne
     @JoinColumn(name = "IdCliente")
@@ -29,11 +28,12 @@ public class Venta {
     @JoinColumn(name = "IdEmpleado")
     private Empleado idEmpleado; */
 
-    @Column(name = "NumeroSerie")
+    @Column(name = "NumeroSerie", unique = true)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String numeroSerie;
 
     @Column(name = "FechaVenta")
-    private Date fechaVenta;
+    private LocalDateTime fechaVenta;
 
     @Column(name = "Monto")
     private Double monto;
