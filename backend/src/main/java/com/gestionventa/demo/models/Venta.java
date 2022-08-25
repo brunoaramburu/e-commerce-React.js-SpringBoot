@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Entity
 @Table(name = "venta")
@@ -36,7 +37,7 @@ public class Venta {
     private LocalDateTime fechaVenta;
 
     @Column(name = "Monto")
-    private Double monto;
+    private AtomicReference<Double> monto;
 
     @Column(name = "Estado")
     private Boolean estado;

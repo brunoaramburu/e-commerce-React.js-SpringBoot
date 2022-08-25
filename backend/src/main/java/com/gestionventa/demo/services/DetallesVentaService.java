@@ -11,7 +11,9 @@ public interface DetallesVentaService {
 
     List<DetallesVenta> findByIdVentas(Venta venta);
 
-    void saveDetallesVenta(DetallesVenta detallesVenta);
+    DetallesVenta saveDetallesVenta(DetallesVenta detallesVenta);
 
     void deleteDetalleVenta(Integer id);
+
+    void updateProductosYventa(List<DetallesVenta> detallesVentas);
 }
