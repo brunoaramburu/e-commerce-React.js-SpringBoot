@@ -27,7 +27,6 @@ public class VentaControllers {
     public Venta saveVenta(Venta venta){
         return ventaServiceImp.saveVenta(venta);
     }
-
     @PutMapping("/venta")
     public void updateVenta(Venta venta){
         ventaServiceImp.updateVenta(venta);

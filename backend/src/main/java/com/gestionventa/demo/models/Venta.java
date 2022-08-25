@@ -41,4 +41,6 @@ public class Venta {
 
     @Column(name = "Estado")
     private Boolean estado;
+
+
 }
