@@ -1,47 +1,41 @@
-import React, { Component } from 'react'
 import ProductosServicio from '../servicios/ProductosServicio'
+import React, { useState, useEffect } from 'react';
+import {useParams} from 'react-router-dom';
 
-class VerProductoComponente extends Component {
-    constructor(props) {
-        super(props)
+function VerProductoComponente () {
 
-        this.state = {
-            id: this.props.match.params.id,
-            producto: {}
-        }
+    const {id} = useParams()
+    const [producto, setProducto] = useState([])
+  
+    const fetchProducto = () => {
+        ProductosServicio.httpGet(`/${id}`)
+            .then((res) => setProducto(res.data))
     }
 
-    componentDidMount(){
-        ProductosServicio.getProductoById(this.state.id).then( res => {
-            this.setState({producto: res.data});
-        })
-    }
+    useEffect(fetchProducto, [])
 
-    render() {
-        return (
-            <div>
-                <br></br>
-                <div className = "card col-md-6 offset-md-3">
-                    <h3 className = "text-center"> Ver detalles del Producto</h3>
-                    <div className = "card-body">
-                        <div className = "row">
-                            <label> Nombre: </label>
-                            <div> { this.state.producto.nombres }</div>
-                        </div>
-                        <div className = "row">
-                            <label> Precio: </label>
-                            <div> { this.state.producto.precio }</div>
-                        </div>
-                        <div className = "row">
-                            <label> Stock: </label>
-                            <div> { this.state.producto.stock }</div>
-                        </div>
+    return (
+        <div>
+            <br></br>
+            <div className = "card col-md-6 offset-md-3">
+                <h3 className = "text-center"> Ver detalles del Producto</h3>
+                <div className = "card-body">
+                    <div className = "row">
+                        <label> Nombre: </label>
+                        <div> { producto.nombres }</div>
                     </div>
-
+                    <div className = "row">
+                        <label> Precio: </label>
+                        <div> { producto.precio }</div>
+                    </div>
+                    <div className = "row">
+                        <label> Stock: </label>
+                        <div> { producto.stock }</div>
+                    </div>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 export default VerProductoComponente

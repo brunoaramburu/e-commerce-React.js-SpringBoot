@@ -17,17 +17,17 @@ function ListarProductosComponente (props) {
     const deleteProducto = (id) => {
         ProductosServicios.deleteProducto(id)
         .then(fetchProductos);
-        props.history.push('/productos');
+        window.location.assign('/productos');
     }
     const viewProducto = (id) =>{
-        props.history.push(`/ver-producto/${id}`);
+        window.location.assign(`/ver-producto/${id}`);
     }
     const editProducto = (id) =>{
-        props.history.push(`/actualizar-producto/${id}`);
+        window.location.assign(`/actualizar-producto/${id}`);
     }
 
     const createProducto = () =>{
-        props.history.push('/crear-producto/_crear');
+        window.location.assign('/crear-producto/_crear');
     }
 
     return (

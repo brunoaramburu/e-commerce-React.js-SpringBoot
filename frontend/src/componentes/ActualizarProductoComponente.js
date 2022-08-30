@@ -18,12 +18,12 @@ function ActualizarProductoComponente(props) {
         e.preventDefault()
         ProductosServicio.httpPut(`/${id}/`, {nombres: name, precio: price, stock: stocks, estado: true})
             .then(fetchProductos)
-            props.history.push('/productos');
-            window.location.reload()
+            window.location.assign('/productos');
         }
 
-    const cancel = () => {
-        props.history.push('/productos');
+    const cancel = (e) => {
+        e.preventDefault()
+        window.location.assign('/productos');
     }
 
     useEffect(fetchProductos, [])
