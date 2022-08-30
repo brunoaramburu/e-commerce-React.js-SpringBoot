@@ -17,11 +17,11 @@ function CrearProductoComponente (props) {
         e.preventDefault()
         ProductosServicios.httpPost('/', {nombres: name, precio: price, stock: stocks, estado: true})
             .then(fetchProductos)
-            window.location.replace('/productos');
+            window.location.assign('/productos');
     } 
 
     const cancel = () => {
-        window.location.replace('/productos');
+        window.location.assign('/productos');
     }
 
     useEffect(fetchProductos, [])
