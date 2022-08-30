@@ -16,7 +16,7 @@ function ActualizarProductoComponente(props) {
 
     const editProductos = (e) => {
         e.preventDefault()
-        ProductosServicio.httpPut(`/${id}/`, {nombres: name, precio: price, stock: stocks, estado: true})
+        ProductosServicio.httpPut(`/${id}/`, {id: id, nombres: name, precio: price, stock: stocks, estado: true})
             .then(fetchProductos)
             window.location.assign('/productos');
         }
