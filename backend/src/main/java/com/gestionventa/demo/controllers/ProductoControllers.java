@@ -2,7 +2,7 @@ package com.gestionventa.demo.controllers;
 
 import com.gestionventa.demo.models.Producto;
 import com.gestionventa.demo.models.ResponseModel;
-import com.gestionventa.demo.services.ProductoServiceImp;
+import com.gestionventa.demo.services.Producto.ProductoServiceImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;

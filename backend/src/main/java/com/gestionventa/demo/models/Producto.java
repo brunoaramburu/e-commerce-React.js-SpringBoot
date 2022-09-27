@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "producto")
@@ -33,5 +34,10 @@ public class Producto {
     private Integer stock;
     @Column(name = "Estado")
     private Boolean estado;
+    @Column(name = "fecha_creacion")
+    private LocalDateTime fechaDeCreacion;
+    @Column(name = "fecha_actualizacion")
+    private LocalDateTime fechaDeActualizacion;
+
 
 }

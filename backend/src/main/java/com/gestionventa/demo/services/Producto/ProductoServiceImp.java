@@ -1,17 +1,19 @@
-package com.gestionventa.demo.services;
+package com.gestionventa.demo.services.Producto;
 
 import com.gestionventa.demo.models.Producto;
 import com.gestionventa.demo.models.ResponseModel;
 import com.gestionventa.demo.repository.ProductoRepository;
+import com.gestionventa.demo.services.Producto.ProductoService;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Service
-public class ProductoServiceImp implements ProductoService{
+public class ProductoServiceImp implements ProductoService {
 
     private final ProductoRepository productoRepository;
 
@@ -46,15 +48,15 @@ public class ProductoServiceImp implements ProductoService{
 
         ResponseModel<Object> response = new ResponseModel<>();
 
-        if(producto.getNombres().equals("") || producto.getNombres() == null){
+        if(isBlank(producto.getNombres())){
             response.setSucces(false);
             response.getErrors().add("el producto requiere nombre");
         }
-        if(producto.getCategoria().equals("") || producto.getCategoria() == null){
+        if(isBlank(producto.getCategoria())){
             response.setSucces(false);
             response.getErrors().add("el producto requiere categoria");
         }
-        if(producto.getDescripcion().equals("") || producto.getDescripcion() == null){
+        if(isBlank(producto.getDescripcion())){
             response.setSucces(false);
             response.getErrors().add("el producto requiere una descripción");
         }
@@ -85,15 +87,15 @@ public class ProductoServiceImp implements ProductoService{
             return response;
         }
 
-        if(producto.getNombres().equals("") || producto.getNombres() == null){
+        if(isBlank(producto.getNombres())){
             response.setSucces(false);
             response.getErrors().add("el producto requiere nombre para cambiarse");
         }
-        if(producto.getCategoria().equals("") || producto.getCategoria() == null){
+        if(isBlank(producto.getCategoria())){
             response.setSucces(false);
             response.getErrors().add("el producto requiere categoria para cambiarse");
         }
-        if(producto.getDescripcion().equals("") || producto.getDescripcion() == null){
+        if(isBlank(producto.getDescripcion())){
             response.setSucces(false);
             response.getErrors().add("el producto requiere una descripción para cambiarse");
         }

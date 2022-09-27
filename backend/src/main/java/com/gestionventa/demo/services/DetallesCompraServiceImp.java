@@ -5,6 +5,7 @@ import com.gestionventa.demo.models.Producto;
 import com.gestionventa.demo.models.Compra;
 import com.gestionventa.demo.models.ResponseModel;
 import com.gestionventa.demo.repository.DetallesCompraRepository;
+import com.gestionventa.demo.services.Producto.ProductoServiceImp;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

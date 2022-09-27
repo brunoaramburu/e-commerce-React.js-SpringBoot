@@ -1,4 +1,4 @@
-package com.gestionventa.demo.services;
+package com.gestionventa.demo.services.Producto;
 
 
 import com.gestionventa.demo.models.Producto;

@@ -24,6 +24,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.gestionventa.demo.controllers"))
+                .apis(RequestHandlerSelectors.basePackage("com.gestionventa.demo.controllers.Usuario"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(getApiInfo())
