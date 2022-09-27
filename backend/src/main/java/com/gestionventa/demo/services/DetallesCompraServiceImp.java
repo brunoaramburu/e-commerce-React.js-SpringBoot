@@ -5,6 +5,7 @@ import com.gestionventa.demo.models.Producto;
 import com.gestionventa.demo.models.Compra;
 import com.gestionventa.demo.models.ResponseModel;
 import com.gestionventa.demo.repository.DetallesCompraRepository;
+import com.gestionventa.demo.services.Compra.CompraServiceImp;
 import com.gestionventa.demo.services.Producto.ProductoServiceImp;
 import org.springframework.stereotype.Service;
 
@@ -60,8 +61,8 @@ public class DetallesCompraServiceImp implements DetallesCompraService {
         });
 
 
-        Compra compra = ventaServiceImp.venta(detalleCompras.get(0).getIdCompra().getId());
+        Compra compra = ventaServiceImp.compra(detalleCompras.get(0).getIdCompra().getId()).getObject();
         compra.setMonto(total.get());
-        ventaServiceImp.updateVenta(compra);
+        ventaServiceImp.updateCompra(compra);
     }
 }

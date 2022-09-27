@@ -1,7 +1,7 @@
 package com.gestionventa.demo.controllers;
 import com.gestionventa.demo.models.Compra;
 import com.gestionventa.demo.models.ResponseModel;
-import com.gestionventa.demo.services.CompraServiceImp;
+import com.gestionventa.demo.services.Compra.CompraServiceImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,19 +51,19 @@ public class CompraControllers {
     }
     @PostMapping("/compra")
     public ResponseEntity<?> saveCompra(@RequestBody Compra compra){
-        compraServiceImp.saveVenta(compra);
+        compraServiceImp.saveCompra(compra);
 
         return ResponseEntity.badRequest().body("error");
     }
     @PutMapping("/compra/{id}")
     public void updateCompra(@RequestBody Compra compra, @PathVariable(value = "id") Integer id){
 
-        compraServiceImp.updateVenta(compra);
+        compraServiceImp.updateCompra(compra);
     }
 
     @DeleteMapping("/compra/{id}")
     public void deleteCompra(@PathVariable(value = "id") Integer id){
-        compraServiceImp.deleteVenta(id);
+        compraServiceImp.deleteCompra(id);
     }
 
 }
