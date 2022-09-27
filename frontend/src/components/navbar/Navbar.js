@@ -32,20 +32,10 @@ const NavBar = props => {
         </Link>
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
-            <NavItem>
-              <Link to="/" className="nav-link">
-                Comprar
-              </Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/" className="nav-link">
-                Vender
-              </Link>
-            </NavItem>
             
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                Categorias
+                Comprar
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>ElectroHogar</DropdownItem>
@@ -56,9 +46,15 @@ const NavBar = props => {
                 <DropdownItem>Deco y Jardín</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
-          
+
             <NavItem>
               <Link to="/" className="nav-link">
+                Vender
+              </Link>
+            </NavItem>
+                      
+            <NavItem>
+              <Link to="/ingresar" className="nav-link">
                    Ingresar 
               </Link>
             </NavItem>

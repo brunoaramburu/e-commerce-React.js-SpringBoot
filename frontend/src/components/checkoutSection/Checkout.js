@@ -40,7 +40,7 @@ function Checkout(props) {
                       />
                       <input
                         type="text"
-                        placeholder="Enter Your Mpesa number"
+                        placeholder="Ingresa tu cuenta de Marcado Pago"
                         className="form-control ml-3"
                       />
                     </div>

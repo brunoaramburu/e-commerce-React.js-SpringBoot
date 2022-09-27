@@ -12,6 +12,8 @@ import ProductSheet from "../bottomSheet/ProductSheet"
 import Stars from "../rating/Stars"
 import { addToCart } from "../../actions/cartActions"
 
+
+
 function ProductCard({ product, addToCart, ...props }) {
   const [open, setOpen] = useState(false)
   const [quantity, setQuantity] = useState(1)
