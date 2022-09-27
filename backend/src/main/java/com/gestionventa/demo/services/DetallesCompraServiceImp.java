@@ -3,6 +3,7 @@ package com.gestionventa.demo.services;
 import com.gestionventa.demo.models.DetallesCompra;
 import com.gestionventa.demo.models.Producto;
 import com.gestionventa.demo.models.Compra;
+import com.gestionventa.demo.models.ResponseModel;
 import com.gestionventa.demo.repository.DetallesCompraRepository;
 import org.springframework.stereotype.Service;
 
@@ -51,9 +52,9 @@ public class DetallesCompraServiceImp implements DetallesCompraService {
         AtomicReference<Double> total = new AtomicReference<>((double) 0);
 
         detalleCompras.stream().parallel().forEach(detallesCompra -> {
-            Producto producto = productoServiceImp.poducto(detallesCompra.getIdProducto().getId());
-            producto.setStock(producto.getStock()- detallesCompra.getCantidad());
-            productoServiceImp.updateProducto(producto);
+            ResponseModel<Producto> producto = productoServiceImp.producto(detallesCompra.getIdProducto().getId());
+            producto.getObject().setStock(producto.getObject().getStock()- detallesCompra.getCantidad());
+            productoServiceImp.updateProducto(producto.getObject(), producto.getObject().getId());
             total.updateAndGet(v -> v + detallesCompra.getPrecioVenta() * detallesCompra.getCantidad());
         });
 

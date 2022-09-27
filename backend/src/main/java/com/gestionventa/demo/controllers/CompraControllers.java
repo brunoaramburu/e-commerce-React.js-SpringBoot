@@ -1,40 +1,69 @@
 package com.gestionventa.demo.controllers;
 import com.gestionventa.demo.models.Compra;
+import com.gestionventa.demo.models.ResponseModel;
 import com.gestionventa.demo.services.CompraServiceImp;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api")
 public class CompraControllers {
-    private final CompraServiceImp ventaServiceImp;
+    private final CompraServiceImp compraServiceImp;
 
-    public CompraControllers(CompraServiceImp ventaServiceImp) {
-        this.ventaServiceImp = ventaServiceImp;
+    public CompraControllers(CompraServiceImp compraServiceImp) {
+        this.compraServiceImp = compraServiceImp;
     }
 
     @GetMapping("/compra")
-    public List<Compra> ventas(){
-        return ventaServiceImp.ventas();
+    public ResponseEntity<Compra> compras(){
+        ResponseModel<Compra> errores = new ResponseModel<Compra>(new Compra());
+
+        errores.setObject(new Compra());
+        errores.getErrors().add("hola");
+        errores.getErrors().add("como va");
+
+        List<Compra> compraList = new ArrayList<>();
+
+        compraList.add(new Compra());
+
+        if(compraList.get(0).getId() != null){
+            return new ResponseEntity(compraList, HttpStatus.OK);
+        }
+        return new ResponseEntity(errores.getErrors(), HttpStatus.BAD_REQUEST);
     }
     @GetMapping("/compra/{id}")
-    public Compra venta(@PathVariable(value = "id")Integer id){
-        return ventaServiceImp.venta(id);
+    public ResponseEntity<Compra> compra(@PathVariable(value = "id")Integer id){
+
+        ResponseModel<Compra> errores = new ResponseModel<Compra>(new Compra());
+
+        errores.getErrors().add("hola");
+        errores.getErrors().add("como va");
+
+        if(id == 0){
+            return new ResponseEntity(errores.getErrors(), HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity(errores.getObject(), HttpStatus.OK);
     }
     @PostMapping("/compra")
-    public Compra saveVenta(Compra compra){
-        return ventaServiceImp.saveVenta(compra);
+    public ResponseEntity<?> saveCompra(@RequestBody Compra compra){
+        compraServiceImp.saveVenta(compra);
+
+        return ResponseEntity.badRequest().body("error");
     }
-    @PutMapping("/compra")
-    public void updateVenta(Compra compra){
-        ventaServiceImp.updateVenta(compra);
+    @PutMapping("/compra/{id}")
+    public void updateCompra(@RequestBody Compra compra, @PathVariable(value = "id") Integer id){
+
+        compraServiceImp.updateVenta(compra);
     }
 
-    @DeleteMapping("/compra")
-    public void deleteVenta(Integer id){
-        ventaServiceImp.deleteVenta(id);
+    @DeleteMapping("/compra/{id}")
+    public void deleteCompra(@PathVariable(value = "id") Integer id){
+        compraServiceImp.deleteVenta(id);
     }
 
 }

@@ -21,14 +21,6 @@ public class Compra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    /*@ManyToOne
-    @JoinColumn(name = "IdCliente")
-    private Cliente idCliente;
-
-    @ManyToOne
-    @JoinColumn(name = "IdEmpleado")
-    private Empleado idEmpleado; */
-
     @Column(name = "NumeroSerie", unique = true)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String numeroSerie;

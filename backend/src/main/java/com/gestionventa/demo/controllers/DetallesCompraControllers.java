@@ -10,30 +10,30 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("/api")
 public class DetallesCompraControllers {
-    private final DetallesCompraServiceImp detallesVentaServiceImp;
+    private final DetallesCompraServiceImp detallesCompraServiceImp;
 
 
-    public DetallesCompraControllers(DetallesCompraServiceImp detallesVentaServiceImp) {
-        this.detallesVentaServiceImp = detallesVentaServiceImp;
+    public DetallesCompraControllers(DetallesCompraServiceImp detallesCompraServiceImp) {
+        this.detallesCompraServiceImp = detallesCompraServiceImp;
     }
 
     @GetMapping("/detallecompra")
     public List<DetallesCompra> detallesVentaListXVenta(Compra compra){
-        return detallesVentaServiceImp.findByIdCompra(compra);
+        return detallesCompraServiceImp.findByIdCompra(compra);
     }
 
     @PostMapping("/detallecompra")
     public DetallesCompra saveDetalleVenta(DetallesCompra detallesCompra){
-        return detallesVentaServiceImp.saveDetallesCompra(detallesCompra);
+        return detallesCompraServiceImp.saveDetallesCompra(detallesCompra);
     }
 
     @PutMapping("/ActualizarStock")
     public void actualizarStock(List<DetallesCompra> detallesCompras){
-        detallesVentaServiceImp.updateProductosYCompra(detallesCompras);
+        detallesCompraServiceImp.updateProductosYCompra(detallesCompras);
     }
 
     @DeleteMapping("/detallecompra")
     public void deleteDetalleVenta(Integer id){
-        detallesVentaServiceImp.deleteDetalleCompra(id);
+        detallesCompraServiceImp.deleteDetalleCompra(id);
     }
 }

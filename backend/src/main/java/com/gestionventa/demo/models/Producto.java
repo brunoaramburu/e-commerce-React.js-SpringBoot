@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "producto")
@@ -18,11 +19,17 @@ public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "Nombres")
+    @Column(name = "Nombres", nullable = false, length = 30)
     private String nombres;
-    @Column(name = "Precio")
+    @Column(name = "categoria", nullable = false, length = 30)
+    private String categoria;
+    @Column(name = "descripcion", nullable = false)
+    private String descripcion;
+    @Column(name = "Precio", nullable = false, length = 500)
+    @Min(0)
     private Double precio;
-    @Column(name = "Stock")
+    @Column(name = "Stock", nullable = false)
+    @Min(0)
     private Integer stock;
     @Column(name = "Estado")
     private Boolean estado;
