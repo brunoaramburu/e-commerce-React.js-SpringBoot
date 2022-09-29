@@ -6,32 +6,35 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "detalle_compra")
+@Table(name = "item_carrito")
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
-public class DetallesCompra {
+public class ItemCarrito {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
     @ManyToOne
-    @JoinColumn(name = "IdCompra")
+    @JoinColumn(name = "id_compra")
     private Compra idCompra;
+    @JoinColumn(name = "comprador")
     @ManyToOne
-    @JoinColumn(name = "IdProducto")
+    private Usuario idComprador;
+    @ManyToMany
+    @JoinColumn(name = "id_producto")
     private Producto idProducto;
-    @ManyToOne
-    @Column(name = "Cantidad")
+    @JoinColumn(name = "vendedor")
+    @Min(1)
     private Integer cantidad;
-    @Column(name = "PrecioVenta")
+    @Column(name = "precio_venta")
+    @Min(0)
     private Double precioVenta;
-    @Column(name = "fecha_creacion")
-    private LocalDateTime fechaDeCreacion;
-    @Column(name = "fecha_actualizacion")
-    private LocalDateTime fechaDeActualizacion;
+
 }

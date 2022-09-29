@@ -9,13 +9,14 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 
+
 @Entity
-@Table(name = "compra")
+@Table(name = "venta")
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Compra {
+public class Venta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +24,10 @@ public class Compra {
     private Integer id;
     @Column(name = "numero_serie")
     private String numeroSerie;
-    @Column(name = "fecha_compra")
-    private LocalDateTime fechaCompra;
+    @Column(name = "fecha_venta")
+    private LocalDateTime fechaVenta;
+    @JoinColumn(name = "vendedor")
+    private Usuario vendedor;
     @Column(name = "total")
     @Min(0)
     private Double total;
