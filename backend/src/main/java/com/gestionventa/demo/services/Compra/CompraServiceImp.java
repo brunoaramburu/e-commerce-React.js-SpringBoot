@@ -2,13 +2,13 @@ package com.gestionventa.demo.services.Compra;
 
 import com.gestionventa.demo.models.Compra;
 import com.gestionventa.demo.models.ResponseModel;
-import com.gestionventa.demo.repository.DetallesCompraRepository;
 import com.gestionventa.demo.repository.CompraRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -16,12 +16,12 @@ import static java.util.stream.Collectors.toList;
 public class CompraServiceImp implements CompraService {
 
     private final CompraRepository compraRepository;
-    private final DetallesCompraRepository detallesCompraRepository;
+    private final ResponseModel<Compra> response;
 
 
-    public CompraServiceImp(CompraRepository compraRepository, DetallesCompraRepository detallesCompraRepository) {
+    public CompraServiceImp(CompraRepository compraRepository, ResponseModel<Compra> response) {
         this.compraRepository = compraRepository;
-        this.detallesCompraRepository = detallesCompraRepository;
+        this.response = response;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class CompraServiceImp implements CompraService {
 
     @Override
     public ResponseModel<Compra> compra(Integer id) {
-        ResponseModel<Compra> response = new ResponseModel<>();
+        //ResponseModel<Compra> response = new ResponseModel<>();
 
         if(!compraRepository.existsById(id) || !compraRepository.findById(id).get().getEstado()){
             response.getErrors().add("no existe la compra");
@@ -49,7 +49,14 @@ public class CompraServiceImp implements CompraService {
 
     @Override
     public ResponseModel<?> saveCompra(Compra compra) {
+       // ResponseModel<?> response = new ResponseModel<>();
+
+        compra.setFechaVenta(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
+        compra.setEstado(true);
         compra.setFechaVenta(LocalDateTime.now());
+
+        response.setObject(compraRepository.save(compra));
+
         return null;
     }
     @Override

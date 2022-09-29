@@ -3,10 +3,12 @@ package com.gestionventa.demo.services.Producto;
 import com.gestionventa.demo.models.Producto;
 import com.gestionventa.demo.models.ResponseModel;
 import com.gestionventa.demo.repository.ProductoRepository;
-import com.gestionventa.demo.services.Producto.ProductoService;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -17,8 +19,11 @@ public class ProductoServiceImp implements ProductoService {
 
     private final ProductoRepository productoRepository;
 
-    public ProductoServiceImp(ProductoRepository productoRepository) {
+    private final ResponseModel<Producto> response;
+
+    public ProductoServiceImp(ProductoRepository productoRepository, ResponseModel<Producto> response) {
         this.productoRepository = productoRepository;
+        this.response = response;
     }
 
     @Async
@@ -33,7 +38,7 @@ public class ProductoServiceImp implements ProductoService {
 
     @Override
     public ResponseModel<Producto> producto(Integer id) {
-        ResponseModel<Producto> response = new ResponseModel<>();
+       // ResponseModel<Producto> response = new ResponseModel<>();
         if (!productoRepository.existsById(id) || !productoRepository.findById(id).get().getEstado()){
             response.getErrors().add("No existe el producto");
             response.setSucces(false);
@@ -46,7 +51,7 @@ public class ProductoServiceImp implements ProductoService {
     @Override
     public ResponseModel<?> saveProducto(Producto producto) {
 
-        ResponseModel<Object> response = new ResponseModel<>();
+        //ResponseModel<Object> response = new ResponseModel<>();
 
         if(isBlank(producto.getNombres())){
             response.setSucces(false);
@@ -73,6 +78,7 @@ public class ProductoServiceImp implements ProductoService {
         }
 
         producto.setEstado(true);
+        producto.setFechaDeCreacion(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
         response.setObject(productoRepository.save(producto));
         return response;
     }
@@ -80,7 +86,7 @@ public class ProductoServiceImp implements ProductoService {
     @Override
     public ResponseModel<?> updateProducto(Producto producto, Integer id) {
 
-        ResponseModel<Producto> response = new ResponseModel<>();
+        //ResponseModel<Producto> response = new ResponseModel<>();
         if (!productoRepository.existsById(id)){
             response.getErrors().add("No existe el producto");
             response.setSucces(false);
@@ -119,7 +125,7 @@ public class ProductoServiceImp implements ProductoService {
 
     @Override
     public ResponseModel<?> deleteProducto(Integer id) {
-        ResponseModel<Producto> response = new ResponseModel<>();
+       // ResponseModel<Producto> response = new ResponseModel<>();
         if (!productoRepository.existsById(id)){
             response.getErrors().add("No existe el producto");
             response.setSucces(false);

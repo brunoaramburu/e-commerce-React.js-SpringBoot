@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -20,19 +21,20 @@ public class Compra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "NumeroSerie", unique = true)
+    @Column(name = "numeroSerie", unique = true)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private String numeroSerie;
-
-    @Column(name = "FechaVenta")
+    @Column(name = "fechaVenta")
     private LocalDateTime fechaVenta;
-
-    @Column(name = "Monto")
+    @Column(name = "monto")
+    @Min(0)
     private Double monto;
-
-    @Column(name = "Estado")
+    @Column(name = "estado")
     private Boolean estado;
-
+    @ManyToOne
+    @Column(name = "fecha_creacion")
+    private LocalDateTime fechaDeCreacion;
+    @Column(name = "fecha_actualizacion")
+    private LocalDateTime fechaDeActualizacion;
 
 }

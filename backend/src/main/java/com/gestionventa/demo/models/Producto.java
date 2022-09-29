@@ -36,6 +36,9 @@ public class Producto {
     private Integer stock;
     @Column(name = "Estado")
     private Boolean estado;
+    @ManyToOne
+    @JoinColumn(name = "venedor")
+    private Usuario vendedor;
     @Column(name = "fecha_creacion")
     private LocalDateTime fechaDeCreacion;
     @Column(name = "fecha_actualizacion")
