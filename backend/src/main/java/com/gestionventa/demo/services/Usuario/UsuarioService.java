@@ -6,7 +6,6 @@ import com.gestionventa.demo.models.Usuario;
 public interface UsuarioService {
 
     ResponseModel<String> RegistrarUsuario(Usuario usuario);
-    ResponseModel<String> login();
-
+    String login(String email, String password);
 
 }

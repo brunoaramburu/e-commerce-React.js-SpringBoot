@@ -3,6 +3,7 @@ package com.gestionventa.demo.services.Usuario;
 import com.gestionventa.demo.models.ResponseModel;
 import com.gestionventa.demo.models.Usuario;
 import com.gestionventa.demo.repository.UsuarioRepository;
+import com.gestionventa.demo.util.JWTUtil;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Service
@@ -18,8 +18,11 @@ public class UsuarioServiceImp implements UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
 
-    public UsuarioServiceImp(UsuarioRepository usuarioRepository) {
+    private final JWTUtil JwtUtil;
+
+    public UsuarioServiceImp(UsuarioRepository usuarioRepository, JWTUtil jwtUtil) {
         this.usuarioRepository = usuarioRepository;
+        JwtUtil = jwtUtil;
     }
 
     @Override
@@ -83,7 +86,20 @@ public class UsuarioServiceImp implements UsuarioService {
     }
 
     @Override
-    public ResponseModel<String> login() {
-        return null;
+    public String login(String email, String password) {
+
+        Usuario usuarioEncontrado = usuarioRepository.findByEmail(email);
+
+        if(usuarioEncontrado == null) return "Usuario no encontrado";
+
+        String passHash = usuarioEncontrado.getPassword();
+        Argon2 argon = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+
+        if(!argon.verify(passHash,password)) return "Contraseña incorrecta";
+
+
+        String token = JwtUtil.create(usuarioEncontrado.getId().toString(), usuarioEncontrado.toString());
+
+        return token;
     }
 }

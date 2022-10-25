@@ -3,6 +3,7 @@ package com.gestionventa.demo.services.Producto;
 import com.gestionventa.demo.models.Producto;
 import com.gestionventa.demo.models.ResponseModel;
 import com.gestionventa.demo.repository.ProductoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +20,9 @@ public class ProductoServiceImp implements ProductoService {
 
     private final ProductoRepository productoRepository;
 
-    private final ResponseModel<Producto> response;
 
-    public ProductoServiceImp(ProductoRepository productoRepository, ResponseModel<Producto> response) {
+    public ProductoServiceImp(ProductoRepository productoRepository) {
         this.productoRepository = productoRepository;
-        this.response = response;
     }
 
     @Async
@@ -31,14 +30,14 @@ public class ProductoServiceImp implements ProductoService {
     public List<Producto> productos() {
         return productoRepository
                 .findAll()
-                .stream()
+                .stream().parallel()
                 .filter(p -> p.getEstado())
                 .collect(toList());
     }
 
     @Override
     public ResponseModel<Producto> producto(Integer id) {
-       // ResponseModel<Producto> response = new ResponseModel<>();
+       ResponseModel<Producto> response = new ResponseModel<>();
         if (!productoRepository.existsById(id) || !productoRepository.findById(id).get().getEstado()){
             response.getErrors().add("No existe el producto");
             response.setSucces(false);
@@ -51,7 +50,7 @@ public class ProductoServiceImp implements ProductoService {
     @Override
     public ResponseModel<?> saveProducto(Producto producto) {
 
-        //ResponseModel<Object> response = new ResponseModel<>();
+        ResponseModel<Object> response = new ResponseModel<>();
 
         if(isBlank(producto.getNombres())){
             response.setSucces(false);
@@ -86,7 +85,7 @@ public class ProductoServiceImp implements ProductoService {
     @Override
     public ResponseModel<?> updateProducto(Producto producto, Integer id) {
 
-        //ResponseModel<Producto> response = new ResponseModel<>();
+        ResponseModel<Producto> response = new ResponseModel<>();
         if (!productoRepository.existsById(id)){
             response.getErrors().add("No existe el producto");
             response.setSucces(false);
@@ -125,7 +124,7 @@ public class ProductoServiceImp implements ProductoService {
 
     @Override
     public ResponseModel<?> deleteProducto(Integer id) {
-       // ResponseModel<Producto> response = new ResponseModel<>();
+       ResponseModel<Producto> response = new ResponseModel<>();
         if (!productoRepository.existsById(id)){
             response.getErrors().add("No existe el producto");
             response.setSucces(false);
