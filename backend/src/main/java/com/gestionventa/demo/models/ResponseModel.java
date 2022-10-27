@@ -5,7 +5,7 @@ import org.springframework.http.HttpEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResponseModel<T> {
+public class ResponseModel<T> extends HttpEntity {
 
         private T Object;
         private Boolean Succes;

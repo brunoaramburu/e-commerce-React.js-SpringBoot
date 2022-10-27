@@ -3,10 +3,13 @@ package com.gestionventa.demo.services.Producto;
 import com.gestionventa.demo.models.Producto;
 import com.gestionventa.demo.models.ResponseModel;
 import com.gestionventa.demo.repository.ProductoRepository;
-import com.gestionventa.demo.services.Producto.ProductoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -17,6 +20,7 @@ public class ProductoServiceImp implements ProductoService {
 
     private final ProductoRepository productoRepository;
 
+
     public ProductoServiceImp(ProductoRepository productoRepository) {
         this.productoRepository = productoRepository;
     }
@@ -26,14 +30,14 @@ public class ProductoServiceImp implements ProductoService {
     public List<Producto> productos() {
         return productoRepository
                 .findAll()
-                .stream()
+                .stream().parallel()
                 .filter(p -> p.getEstado())
                 .collect(toList());
     }
 
     @Override
     public ResponseModel<Producto> producto(Integer id) {
-        ResponseModel<Producto> response = new ResponseModel<>();
+       ResponseModel<Producto> response = new ResponseModel<>();
         if (!productoRepository.existsById(id) || !productoRepository.findById(id).get().getEstado()){
             response.getErrors().add("No existe el producto");
             response.setSucces(false);
@@ -73,6 +77,7 @@ public class ProductoServiceImp implements ProductoService {
         }
 
         producto.setEstado(true);
+        producto.setFechaDeCreacion(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
         response.setObject(productoRepository.save(producto));
         return response;
     }
@@ -119,7 +124,7 @@ public class ProductoServiceImp implements ProductoService {
 
     @Override
     public ResponseModel<?> deleteProducto(Integer id) {
-        ResponseModel<Producto> response = new ResponseModel<>();
+       ResponseModel<Producto> response = new ResponseModel<>();
         if (!productoRepository.existsById(id)){
             response.getErrors().add("No existe el producto");
             response.setSucces(false);

@@ -8,6 +8,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "producto")
@@ -34,10 +35,14 @@ public class Producto {
     private Integer stock;
     @Column(name = "Estado")
     private Boolean estado;
+    @ManyToOne
+    @JoinColumn(name = "venedor")
+    private Usuario vendedor;
     @Column(name = "fecha_creacion")
     private LocalDateTime fechaDeCreacion;
     @Column(name = "fecha_actualizacion")
     private LocalDateTime fechaDeActualizacion;
-
+    @Column(name = "links_imagenes")
+    private ArrayList<String> linkImagenes;
 
 }
