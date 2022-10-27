@@ -8,11 +8,11 @@ function ResponsiveAppBar() {
       
       <Navbar bg="primary" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Navbar.Brand href="/">Inicio</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link href="#home">Comprar</Nav.Link>
+            <Nav.Link href="#features">Vender</Nav.Link>
+            <Nav.Link href="/inicio">Ingresar</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
