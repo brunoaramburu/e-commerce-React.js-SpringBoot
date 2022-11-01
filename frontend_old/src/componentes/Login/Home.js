@@ -92,7 +92,7 @@ class Home extends React.Component {
     }
 
     handleSubmitRegistro(event) {
-        if(password != confirmpassword){ 
+        if(this.state.password != this.state.confirmpassword){ 
         event.preventDefault();
         this.setState({
             errorpassword: '*Las contraseñas no coinciden.',
