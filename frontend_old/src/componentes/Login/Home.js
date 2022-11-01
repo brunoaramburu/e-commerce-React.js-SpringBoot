@@ -12,12 +12,16 @@ class Home extends React.Component {
         this.state = {
             email: '',
             password: '',
+            confirmpassword: '',
+            errorpassword: '',
         };
     
         this.handleChangeEmail= this.handleChangeEmail.bind(this);
         this.handleChangePassword= this.handleChangePassword.bind(this);
+        this.handleChangeConfirmPassword= this.handleChangeConfirmPassword.bind(this);
     
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmitRegistro = this.handleSubmitRegistro.bind(this);
     
     }
 
@@ -66,6 +70,12 @@ class Home extends React.Component {
         })
     }
 
+    handleChangeConfirmPassword(event) {
+        this.setState({
+            confirmpassword: event.target.value,
+        })
+    }
+
     handleSubmit(event) {
         fetch('http://localhost:8080/api/login/', {
             method: 'POST',
@@ -79,6 +89,28 @@ class Home extends React.Component {
                 password : this.state.password,
             })
     })
+    }
+
+    handleSubmitRegistro(event) {
+        if(password != confirmpassword){ 
+        event.preventDefault();
+        this.setState({
+            errorpassword: '*Las contraseñas no coinciden.',
+        })}
+        else { 
+        fetch('http://localhost:8080/api/registrar/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            xsrfHeaderName: "X-CSRFToken",
+            body: JSON.stringify({
+                email : this.state.email,
+                password : this.state.password,
+            })
+    })
+    }
     }
  
   render() {
@@ -113,10 +145,11 @@ class Home extends React.Component {
                 </div>
                 <div class="register-show">
                 <h2>CREAR CUENTA</h2>
-                <input type="text" placeholder="Email" />
-                <input type="password" placeholder="Contraseña" />
-                <input type="password" placeholder="Confirme su Contraseña" />
-                <input type="button" value="Registrate" />
+                <input type="text" placeholder="Email" onChange={this.handleChangeEmail}/>
+                <input type="password" placeholder="Contraseña" onChange={this.handleChangePassword}/>
+                <input type="password" placeholder="Confirme su Contraseña" onChange={this.handleChangeConfirmPassword}/>
+                <p>{this.state.errorpassword}</p>
+                <input type="button" value="Registrate" onClick={this.handleSubmitRegistro}/>
                 </div>
             </div>
             </div>
