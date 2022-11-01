@@ -5,7 +5,23 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import 'jquery/dist/jquery.min.js';
 import $ from 'jquery';
 class Home extends React.Component {
-  componentDidMount(){
+    
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+            email: '',
+            password: '',
+        };
+    
+        this.handleChangeEmail= this.handleChangeEmail.bind(this);
+        this.handleChangePassword= this.handleChangePassword.bind(this);
+    
+        this.handleSubmit = this.handleSubmit.bind(this);
+    
+    }
+
+    componentDidMount(){
    //animation code
     $(document).ready(function(){
         $('.login-info-box').fadeOut();
@@ -34,9 +50,36 @@ class Home extends React.Component {
             $('.login-show').removeClass('show-log-panel');
             
         }
+        });
     });
-});
-  }
+    } 
+
+    handleChangeEmail(event) {
+        this.setState({
+            email: event.target.value,
+        })
+    }
+    
+    handleChangePassword(event) {
+        this.setState({
+            password: event.target.value,
+        })
+    }
+
+    handleSubmit(event) {
+        fetch('http://localhost:8080/api/login/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            xsrfHeaderName: "X-CSRFToken",
+            body: JSON.stringify({
+                email : this.state.email,
+                password : this.state.password,
+            })
+    })
+    }
  
   render() {
    
@@ -63,9 +106,9 @@ class Home extends React.Component {
             <div class="white-panel">
                 <div class="login-show">
                 <h2>INGRESAR</h2>
-                <input type="text" placeholder="Email" />
-                <input type="password" placeholder="Contraseña" />
-                <input type="button" value="Ingresar" />
+                <input type="text" placeholder="Email" onChange={this.handleChangeEmail}/>
+                <input type="password" placeholder="Contraseña" onChange={this.handleChangePassword}/>
+                <input type="button" value="Ingresar" onClick={this.handleSubmit}/>
                 
                 </div>
                 <div class="register-show">
