@@ -52,7 +52,6 @@ public class ProductoControllers {
     @PostMapping("/productos")
     public ResponseEntity<?> saveProducto(@RequestHeader(value = "Authorization",required = false) String token, @RequestBody Producto producto){
 
-
         String usuarioId = jwtUtil.getKey(token);
 
         if (isBlank(usuarioId)){

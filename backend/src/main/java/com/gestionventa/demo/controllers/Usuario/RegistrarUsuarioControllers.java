@@ -18,10 +18,28 @@ public class RegistrarUsuarioControllers {
         this.usuarioServiceImp = usuarioServiceImp;
     }
 
-    @PostMapping("/registrar")
+    @PostMapping("/v1")
     public ResponseEntity<String> registrar(@RequestBody Usuario usuario){
 
+
         ResponseModel<String> response = usuarioServiceImp.RegistrarUsuario(usuario);
+
+        if(!response.getSucces()){
+            return new ResponseEntity(response.getErrors(), HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity(response.getObject(), HttpStatus.OK);
+    }
+
+    @PostMapping("/registrar")
+    public ResponseEntity<String> registro(@RequestBody Login registro){
+
+
+        Usuario usuario = new Usuario();
+        usuario.setEmail(registro.getEmail());
+        usuario.setPassword(registro.getPassword());
+
+        ResponseModel<String> response = usuarioServiceImp.registro(usuario);
 
         if(!response.getSucces()){
             return new ResponseEntity(response.getErrors(), HttpStatus.BAD_REQUEST);

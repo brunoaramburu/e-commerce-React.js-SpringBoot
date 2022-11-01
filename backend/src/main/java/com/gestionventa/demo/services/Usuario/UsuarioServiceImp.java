@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @Service
@@ -101,5 +103,24 @@ public class UsuarioServiceImp implements UsuarioService {
         String token = JwtUtil.create(usuarioEncontrado.getId().toString(), usuarioEncontrado.toString());
 
         return token;
+    }
+
+    public ResponseModel<String> registro(Usuario usuario){
+
+        ResponseModel<String> response = new ResponseModel<>();
+
+        Argon2 argon = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        String hash = argon.hash(2, 1024, 2, usuario.getPassword());
+        usuario.setPassword(hash);
+
+        usuario.setEstado(true);
+        usuario.setFechaDeCreacion(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
+        Usuario usuario1 = usuarioRepository.save(usuario);
+
+        if(usuario == null){
+            response.getErrors().add("accion no valida");
+            return response;
+        }
+        return new ResponseModel<>("registro correcto");
     }
 }

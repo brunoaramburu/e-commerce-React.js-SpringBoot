@@ -20,21 +20,21 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "nombre_de_usuario", nullable = false, unique = true)
+    @Column(name = "nombre_de_usuario", unique = true)
     private String nombreDeUsuario;
     @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "nombres", nullable = false)
+    @Column(name = "nombres")
     private String nombres;
-    @Column(name = "apellido", nullable = false)
+    @Column(name = "apellido")
     private String apellido;
     @Column(name = "email", nullable = false, unique = true)
     private String email;
     @Column(name = "telefono")
     private String telefono;
-    @Column(name = "DNI", nullable = false, unique = true)
+    @Column(name = "DNI")
     private String DNI;
-    @Column(name = "estado", nullable = false)
+    @Column(name = "estado")
     private Boolean estado;
     @Column(name = "fecha_creacion")
     private LocalDateTime fechaDeCreacion;
